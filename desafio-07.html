@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+</head>
+<body>
+    
+    <table>
+        <thead>
+            <th>Aluno</th>
+            <th>Nota 1</th>
+            <th>Nota 2</th>
+            <th>Nota 3</th>
+            <th>Nota 4</th>
+            <th>Média</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mateus</td>
+                <td>10</td>
+                <td>50</td>
+                <td>65</td>
+                <td>99</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Lucas</td>
+                <td>80</td>
+                <td>25</td>
+                <td>1</td>
+                <td>23</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Felipe</td>
+                <td>35</td>
+                <td>12</td>
+                <td>09</td>
+                <td>25</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <script src="./desafio-01.js"></script>
+    <script>
+        (function(){
+            'use strict';
+            
+            let tableRows = document.querySelectorAll('tr');
+            
+            for(let row of tableRows){
+                let values = _getValuesForRow(row);
+
+                if(values != null){
+                    let averageValue = media(...values);
+                    _setAverageValueIntoRow(row, averageValue);
+                }
+            }
+            
+            function _getValuesForRow(tableRow){
+                let tableData = tableRow.querySelectorAll('td');
+                let values = [];
+                
+                if(tableData.length === 0) return null;
+
+                for(let i = 1; i < tableData.length - 1; i++){
+                    values.push(parseInt(tableData[i].innerText));
+                }
+                
+                return values;
+            }
+            
+            function _setAverageValueIntoRow(tableRow, averageValue){
+                let tableData = tableRow.querySelectorAll('td');
+                tableData[tableData.length - 1].innerText = averageValue;
+            }
+            
+        })();
+    </script>
+</body>
+</html>
