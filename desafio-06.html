@@ -7,19 +7,18 @@
     <title>Curso Javascript 2018</title>
 </head>
 <body>
-    <div id="mensagem">
-    </div>
-
-
+    <input type="text" id="nome">
     <script>
         (function(){
             'use strict';
 
-            let nome = prompt('Informe o seu nome:');
-            
-            let mensagemDiv = document.querySelector("#mensagem");
+            let nome = "Mateus";
+            let sobrenome = "Esteves";
 
-            mensagemDiv.innerHTML = `Olá, <b>${nome}</b>!`;
+            let txtNome = document.querySelector("#nome");
+
+            txtNome.value = `${nome} ${sobrenome}`;
+            txtNome.disabled = true;
         })();
     </script>
 </body>

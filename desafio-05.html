@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+</head>
+<body>
+    <input type="text" id="nome">
+    <button onclick="escreverNome()">Clique aqui</button>
+    <div id="mensagem"></div>
+    
+    <script>
+        function escreverNome(){
+            let _txtNome = document.querySelector("#nome");
+            let _divMensagem = document.querySelector("#mensagem");
+
+            let _nome = _txtNome.value;
+
+            _divMensagem.innerHTML = `Olá, <b>${_nome}</b>`;
+        }
+    </script>
+</body>
+</html>
