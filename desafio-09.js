@@ -13,7 +13,7 @@ var Pessoa = (function () {
     return _pessoa;
 })();
 
-let pessoa1 = new Pessoa("Mateus", "Esteves");
+let pessoa1 = new Pessoa("Falco", "Lombardi");
 let pessoa2 = new Pessoa("Fox", "McCloud");
 let pessoa3 = new Pessoa("Wolf", "O'Donnell");
 
