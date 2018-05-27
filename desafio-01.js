@@ -8,3 +8,5 @@ function media() {
     let media = somatorio / arguments.length;
     return media;
 }
+
+console.log(media(10, 24, 55, 90));
