@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+</head>
+<body>
+    <form id="login">
+        <input type="text" required>
+        <input type="password" required>
+    </form>
+
+    <button id="enviar">Logar</button>
+
+    <script>
+        (function(){
+            'use strict';
+
+            let _btnEnviar = document.getElementById('enviar');
+
+            let _frmLogin = document.getElementById('login');
+
+            _btnEnviar.addEventListener('click', function(event){
+                if(_frmLogin[0].value === '' || _frmLogin[1].value === ''){
+                    event.stopPropagation();
+                    alert('Existe um campo vazio');
+                } else {
+                    alert('form submetido com sucesso');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
