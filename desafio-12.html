@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+</head>
+<body>
+    <textarea cols="30" rows="10" id="txtArea"></textarea>
+    <div id="divContador" style="display: none;">
+        <span id="contador"></span>
+    </div>
+    
+    <script>
+        (function(){
+            'use strict';
+            
+            const MAX_LENGTH = 180;
+            let _txtArea = document.querySelector('#txtArea');
+            let _contador = document.querySelector('#contador');
+            let _divContador = document.querySelector('#divContador');
+            
+            _txtArea.maxLength = MAX_LENGTH;
+            _divContador.style.display = 'block';
+            mostarNumeroDeCaracteresDigitados(0);
+            
+            _txtArea.addEventListener('input', function(){
+                let caracteresRestantes = parseInt(MAX_LENGTH) - parseInt(tamanhoDaString);
+                if(caracteresRestantes === 10){
+                    alert('Faltam apenas 10 letras');
+                }
+                mostarNumeroDeCaracteresDigitados(tamanhoDaString);              
+            });
+            
+            function mostarNumeroDeCaracteresDigitados(tamanhoDaString){
+                _contador.textContent = `${remainingCharacterCount} de ${MAX_LENGTH}`;
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+</head>
+<body>
+    
+    <form action="#" id="myForm" method="POST">
+        <label for="username">Usuário</label>
+        <input type="text" id="username">
+        
+        <label for="password">Senha</label>
+        <input type="password" id="password">
+        
+        <button type="submit">Enviar</button>
+    </form>
+    
+    
+    <script>
+        (function(){
+            'use strict';
+            
+            let _form = document.querySelector('#myForm');
+            
+            _form.addEventListener('submit', function(event){
+                let _username = document.querySelector('#username');
+                let _password = document.querySelector('#password');
+                
+                console.log(_username.value);
+                console.log(_password.value);
+                
+                if(!_username.value || !_password.value){
+                    alert('Preencha todos os campos');
+                    event.preventDefault();
+                }
+            });
+        })();
+    </script>
+    
+    
+</body>
+</html>
