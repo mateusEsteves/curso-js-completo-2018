@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+</head>
+<body>
+    
+    <button>Botão 1</button>
+    <button>Botão 2</button>
+    <button>Botão 3</button>
+    <button>Botão 4</button>
+    <button>Botão 5</button>
+
+    <script>
+        (function(){
+            'use strict';
+
+            let _buttonsList = document.querySelectorAll('button');
+
+            for(let button of _buttonsList){
+                button.addEventListener('click', function(){
+                    console.log(this.textContent);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

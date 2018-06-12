@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+    
+    <style>
+        .done{
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <label for="txtTask"></label>
+        <input type="text" id="txtTask">
+        <button id="submitTask">Inserir Tarefa</button>
+    </div>
+    
+    <div>
+        <ul id="taskList">
+            <li>Tarefa 1</li>
+            <li>Tarefa 2</li>
+            <li>Tarefa 3</li>
+        </ul>
+    </div>
+    
+    <script>
+        (function(){
+            'use strict';
+            
+            const $taskList = document.getElementById('taskList');
+            const $txtTask = document.getElementById('txtTask');
+            const $submitTask = document.getElementById('submitTask');
+            const $tasks = document.querySelectorAll('#taskList li');
+            
+            $submitTask.addEventListener('click', adicionarTask);
+            $taskList.addEventListener('click', toggleFinalizada);
+            
+            $txtTask.addEventListener('keyup', function (event){
+                if(event.keyCode === 13){
+                    adicionarTask();
+                }
+            })
+            
+            function adicionarTask(){
+                $taskList.appendChild(createTaskElement($txtTask.value));
+                $txtTask.value = '';
+                $txtTask.focus();
+            }
+            
+            function createTaskElement(taskText){
+                let li = document.createElement('li');
+                let textNode = document.createTextNode(taskText);
+                li.appendChild(textNode);
+                return li;
+            }
+            
+            function toggleFinalizada(evento) {
+                if(evento.target.nodeName.toLowerCase() === 'li'){
+                    evento.target.classList.toggle('done');
+                    removeTask(evento.target);
+                }
+            }
+
+            function removeTask(taskElement){
+                let deleteTask = confirm(`Deseja mesmo remover a tarefa ${taskElement.textContent}?`);
+
+                if(deleteTask){
+                    taskElement.parentNode.removeChild(taskElement);
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
