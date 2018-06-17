@@ -6,7 +6,7 @@ var Pessoa = (function () {
         let _sobrenome = sobrenome;
 
         this.getNomeCompleto = function () {
-            return `${nome} ${sobrenome}`;
+            return `${_nome} ${_sobrenome}`;
         };
     }
 

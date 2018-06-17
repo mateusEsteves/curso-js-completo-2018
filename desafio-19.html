@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+    
+</head>
+<body>
+    
+    <script src="./desafio-01.js"></script>
+    <script>
+        (function(){
+            'use strict';
+            
+            let numeroSorteado = sortear(5) + 1;
+            
+            let $body = document.querySelector('body');
+            
+            $body.style.backgroundImage = `url(img/img0${numeroSorteado}.jpg)`;
+        })();
+    </script>
+</body>
+</html>
