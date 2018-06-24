@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+</head>
+<body>
+    
+    
+    <script>
+        (function(){
+            'use strict';
+
+            let dataAtual = new Date();
+            dataAtual.setHours(0,0,0,0);
+            let dataNascimento = new Date(dataAtual.getFullYear(), 5, 30);
+            const MILISEGUNDOS_POR_DIA = 24 * 60 * 60 * 1000;
+
+            if(nextBirthdayIsInTheNextYear(dataAtual, dataNascimento)){
+                dataNascimento.setFullYear(dataAtual.getFullYear() + 1);
+            }
+
+            let milisegundosRestantesParaAniversario = dataNascimento.getTime() - dataAtual.getTime();
+
+            if(milisegundosRestantesParaAniversario === 0){
+                alert('Parabéns');
+            } else {
+                let diasAteAniversario = milisegundosRestantesParaAniversario / MILISEGUNDOS_POR_DIA;
+                diasAteAniversario = Math.round(diasAteAniversario);
+
+                alert(`Faltam ${diasAteAniversario} para seu aniversário.`);
+            }
+            
+            function nextBirthdayIsInTheNextYear(currentDate, birthdayDate){
+                return birthdayDate.getTime() < currentDate.getTime();
+            }
+        })();    
+    </script>
+</body>
+</html>
