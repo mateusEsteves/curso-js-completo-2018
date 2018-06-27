@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+
+    <script>
+        window.addEventListener('load', function(){
+            $divRelogio = document.getElementById('relogio');
+
+            let relogioInterval = setInterval(function(){
+                $divRelogio.textContent = getHourFormatted();
+            }, 1000);
+
+            function getHourFormatted(){
+                let now = new Date();
+                let hours = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+                let minutes = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+                let seconds = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
+                return `${hours}:${minutes}:${seconds}`;
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <div id="relogio"></div>
+
+
+</body>
+</html>
