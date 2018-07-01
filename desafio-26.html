@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso Javascript 2018</title>
+    
+    
+    <script>
+        window.addEventListener('load', function(){
+            let $cronometro = document.getElementById('cronometro');
+            let $buttons = document.getElementById('buttons');
+            let $iniciar = document.getElementById('iniciar');
+            let $pausar = document.getElementById('pausar');
+            let $parar = document.getElementById('parar');
+            
+            let ultimoTimestampRegistrado = -1;
+            let timestampCronometro = null;
+            let intervaloCronometro = null;
+            let cronometroEstaAtivo = false;
+            
+            $buttons.addEventListener('click', modificarEstadoDoCronometro);
+            zerarCronometro();
+            
+            function modificarEstadoDoCronometro(event) {
+                if (typeof event.target === 'undefined' || event.target == null || event.target.nodeName !== 'BUTTON') {
+                    return;
+                }
+                
+                if (event.target.id === 'iniciar') {
+                    iniciarCronometro();
+                } else if (event.target.id === 'pausar') {
+                    pausarCronometro();
+                } else if (event.target.id === 'parar') {
+                    pararCronometro();
+                }
+            }
+            
+            function iniciarCronometro() {
+                if (intervaloCronometro != null) return;
+                
+                $iniciar.disabled = true;
+                $pausar.disabled = false;
+                $parar.disabled = false;
+                
+                ultimoTimestampRegistrado = +new Date();
+                
+                intervaloCronometro = setInterval(modificarCronometro, 1000);
+            }
+            
+            function modificarCronometro() {
+                let novoTimestamp = +new Date();
+                timestampCronometro += novoTimestamp - ultimoTimestampRegistrado;
+                ultimoTimestampRegistrado = novoTimestamp;
+                
+                exibirTimestamp(timestampCronometro);
+            }
+            
+            function pausarCronometro() {
+                if (intervaloCronometro == null) return;
+                
+                $iniciar.disabled = false;
+                $pausar.disabled = true;
+                $parar.disabled = false;
+                
+                clearInterval(intervaloCronometro);
+                intervaloCronometro = null;
+            }
+            
+            function pararCronometro() {
+                if (timestampCronometro == null) return;
+                
+                ultimoTimestampRegistrado = -1;
+                
+                $iniciar.disabled = false;
+                $pausar.disabled = true;
+                $parar.disabled = true;
+                
+                clearInterval(intervaloCronometro);
+                intervaloCronometro = null;
+                
+                zerarCronometro();
+            }
+            
+            function zerarCronometro() {
+                timestampCronometro = gerarTimestampZerado();
+                exibirTimestamp(timestampCronometro);
+            }
+            
+            function gerarTimestampZerado() {
+                let data = new Date();
+                data.setHours(0, 0, 0, 0);
+                return data.getTime();
+            }
+            
+            function exibirTimestamp(timestamp) {
+                $cronometro.value = formatarDataParaExibicao(new Date(timestampCronometro));
+            }
+            
+            function formatarDataParaExibicao(dateObject) {
+                return obterNumeroComDoisDigitos(dateObject.getHours()) + ':' + obterNumeroComDoisDigitos(dateObject.getMinutes()) + ':' + obterNumeroComDoisDigitos(dateObject.getSeconds());
+            }
+            
+            function obterNumeroComDoisDigitos(numero) {
+                return numero < 10 ? '0' + numero : numero;
+            }
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <label for="cronometro">Tempo: </label>
+        <input type="text" id="cronometro">
+    </div>
+    
+    <div id="buttons" style="margin-top: 10px; margin-left: 53px;">
+        <button id="iniciar">Iniciar</button>
+        <button id="pausar" disabled>Pausar</button>
+        <button id="parar" disabled>Parar</button>    
+    </div>
+</body>
+</html>
