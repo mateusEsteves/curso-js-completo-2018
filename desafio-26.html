@@ -44,13 +44,13 @@
                 $pausar.disabled = false;
                 $parar.disabled = false;
                 
-                ultimoTimestampRegistrado = +new Date();
+                ultimoTimestampRegistrado = Date.now();
                 
                 intervaloCronometro = setInterval(modificarCronometro, 1000);
             }
             
             function modificarCronometro() {
-                let novoTimestamp = +new Date();
+                let novoTimestamp = Date.now();
                 timestampCronometro += novoTimestamp - ultimoTimestampRegistrado;
                 ultimoTimestampRegistrado = novoTimestamp;
                 
