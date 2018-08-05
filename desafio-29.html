@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso JavaScript 2018</title>
+    
+    <style>
+        .carrossel {
+            overflow: hidden;
+            max-width: 800px;
+            position: relative; 
+            /* faz os outros elementos dentro deste serem posicionados
+            em relação ao top-left deste quando em conjunto com postition: absolute;*/
+        }
+        
+        .carrossel__imagens{
+            white-space: nowrap; /* Serve para não deixar as imagens pularem para a próxima linha */
+            font-size: 0; /* Serve para retirar o espaço entre os itens do carrossel*/
+            transition: transform 1s ease;
+        }
+        
+        .carrossel__item{
+            display: inline-block;
+        }
+        
+        .carrossel__imagem{
+            width: 800px;
+            height: 535px;
+        }
+        
+        .carrossel__button{
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            height: 100%; 
+            background:rgb(0, 0, 0, 0.5); 
+            width: 30px; 
+            position: absolute; 
+            top: 0;
+            border: none;
+        }
+        
+        .carrossel__button--left{
+            left: 0;
+        }
+        
+        .carrossel__button--right{
+            right: 0;
+        }
+        
+        .carrossel__bullets-container{
+            display: flex;
+            position: absolute; 
+            width: 100%; 
+            height: 50px; 
+            bottom: 0;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .carrossel__bullet{
+            width: 10px;
+            height: 10px;
+            background: white;
+            display: inline-block;
+            margin: 7px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .carrossel__bullet--active{
+            background: orangered;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    <div class="carrossel">
+        <div class="carrossel__imagens">
+            <div class="carrossel__item">
+                <img src="img/img01.jpg" alt="NO_IMAGE" class="carrossel__imagem">
+            </div>
+            <div class="carrossel__item">
+                <img src="img/img03.jpg" alt="NO_IMAGE" class="carrossel__imagem">
+            </div>
+            <div class="carrossel__item">
+                <img src="img/img04.jpg" alt="NO_IMAGE" class="carrossel__imagem">
+            </div>
+            <div class="carrossel__item">
+                <img src="img/img05.jpg" alt="NO_IMAGE" class="carrossel__imagem">
+            </div>
+            
+        </div>
+        
+        <button class="carrossel__button carrossel__button--left" id="previous"> < </button>
+        <button class="carrossel__button carrossel__button--right" id="next"> > </button>
+        
+        <div class="carrossel__bullets-container">
+            <div id="bullets">
+                <div class="carrossel__bullet" data-image-index="0"></div>
+                <div class="carrossel__bullet" data-image-index="1"></div>
+                <div class="carrossel__bullet" data-image-index="2"></div>
+                <div class="carrossel__bullet" data-image-index="3"></div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        (function(){
+            'use strict';
+            window.addEventListener('load', function(){
+                var $next = document.getElementById('next');
+                var $previous = document.getElementById('previous');
+                
+                var $images = document.querySelectorAll('.carrossel__item img');
+                var $imageContainer = document.getElementsByClassName('carrossel__imagens')[0];
+                
+                var $bullets = document.getElementById('bullets');
+
+                let currentImageIndex = 0;
+                
+                function init(){
+                    setContainerWidthFor($images.length);
+                    activateBulletFor(0);
+                    startAutomaticImagePassing();
+                }
+                init();
+                
+                $previous.addEventListener('click', goToPreviousImage);
+                $next.addEventListener('click', goToNextImage);
+
+                $bullets.addEventListener('click', function(event){
+                    if(event.target == null || event.target.id === 'bullets'){
+                        return;
+                    } else {
+                       let imageIndex = event.target.getAttribute('data-image-index');
+                       goToImage(imageIndex);
+                    }
+                });
+                
+                function goToPreviousImage() {
+                    let previousImageIndex = getPreviousImageIndex();
+                    goToImage(previousImageIndex);
+                }
+                
+                function goToNextImage(){
+                    let nextImageIndex = getNextImageIndex();
+                    goToImage(nextImageIndex);
+                }
+                
+                function getPreviousImageIndex() {
+                    let previousImageIndex = currentImageIndex - 1;
+                    return previousImageIndex < 0 ? $images.length - 1 : previousImageIndex;
+                }
+                
+                function getNextImageIndex() {
+                    let nextImageIndex = currentImageIndex + 1;
+                    return nextImageIndex % $images.length;
+                }
+                
+                function setCurrentImageIndex(currentIndex){
+                    currentImageIndex = currentIndex;
+                }
+                
+                function goToImage(imageIndex){
+                    toggleActiveBullet(imageIndex, currentImageIndex);
+                    setCurrentImageIndex(imageIndex);
+                    $imageContainer.style.transform = `translateX(-${imageIndex * 800}px)`;
+                }
+
+                function toggleActiveBullet(imageIndex, lastActiveImageIndex){
+                    activateBulletFor(imageIndex);
+                    deactivateBulletFor(lastActiveImageIndex);
+                }
+                
+                function activateBulletFor(imageIndex){
+                    let $currentImageBullet = document.querySelector(`[data-image-index="${imageIndex}"]`);
+                    $currentImageBullet.classList.add('carrossel__bullet--active');
+                }
+
+                function deactivateBulletFor(imageIndex){
+                    let $previousImageBullet = document.querySelector(`[data-image-index="${imageIndex}"]`);
+                    $previousImageBullet.classList.remove('carrossel__bullet--active');
+                }
+                
+                function setContainerWidthFor(imageCount = 1){
+                    $imageContainer.style.width = `${imageCount * 100}%`; 
+                }
+                
+                function startAutomaticImagePassing(){
+                    setInterval(goToNextImage, 7000);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
