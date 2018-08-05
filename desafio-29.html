@@ -122,6 +122,7 @@
                 var $bullets = document.getElementById('bullets');
 
                 let currentImageIndex = 0;
+                let imageChangeInterval = null;
                 
                 function init(){
                     setContainerWidthFor($images.length);
@@ -167,9 +168,11 @@
                 }
                 
                 function goToImage(imageIndex){
+                    stopAutomaticImagePassing();
                     toggleActiveBullet(imageIndex, currentImageIndex);
                     setCurrentImageIndex(imageIndex);
                     $imageContainer.style.transform = `translateX(-${imageIndex * 800}px)`;
+                    startAutomaticImagePassing();
                 }
 
                 function toggleActiveBullet(imageIndex, lastActiveImageIndex){
@@ -192,7 +195,11 @@
                 }
                 
                 function startAutomaticImagePassing(){
-                    setInterval(goToNextImage, 7000);
+                    imageChangeInterval = setInterval(goToNextImage, 7000);
+                }
+
+                function stopAutomaticImagePassing(){
+                    clearInterval(imageChangeInterval);
                 }
             });
         })();
